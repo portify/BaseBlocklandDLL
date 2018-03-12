@@ -50,7 +50,7 @@ BLFUNC(const char*, , Evaluate, const char* string, bool echo, const char* fileN
 //Functions
 
 //Set the module start and length
-void InitScanner(char* moduleName)
+void InitScanner(const char* moduleName)
 {
 	//Find the module
 	HMODULE module = GetModuleHandleA(moduleName);
@@ -68,7 +68,7 @@ void InitScanner(char* moduleName)
 }
 
 //Compare data at two locations for equality
-bool CompareData(PBYTE data, PBYTE pattern, char* mask)
+bool CompareData(PBYTE data, PBYTE pattern, const char* mask)
 {
 	//Iterate over the data, pattern and mask in parallel
 	for (; *mask; ++data, ++pattern, ++mask)
@@ -78,11 +78,11 @@ bool CompareData(PBYTE data, PBYTE pattern, char* mask)
 			return false;
 	}
 
-	return (*mask) == NULL;
+	return (*mask) == 0; //Don't use NULL
 }
 
 //Find a pattern in memory
-DWORD FindPattern(DWORD imageBase, DWORD imageSize, PBYTE pattern, char* mask)
+DWORD FindPattern(DWORD imageBase, DWORD imageSize, PBYTE pattern, const char* mask)
 {
 	//Iterate over the image
 	for (DWORD i = imageBase; i < imageBase + imageSize; i++)
@@ -96,7 +96,7 @@ DWORD FindPattern(DWORD imageBase, DWORD imageSize, PBYTE pattern, char* mask)
 }
 
 //Scan the module for a pattern
-DWORD ScanFunc(char* pattern, char* mask)
+DWORD ScanFunc(const char* pattern, const char* mask)
 {
 	//Just search for the pattern in the module
 	return FindPattern(ImageBase, ImageSize - strlen(mask), (PBYTE)pattern, mask);

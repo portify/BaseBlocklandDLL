@@ -1,3 +1,6 @@
+#ifndef __TORQUE_H__
+#define __TORQUE_H__
+
 #include <Windows.h>
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,3 +86,5 @@ const char* Eval(const char* str);
 
 //Initialize the Torque Interface
 bool InitTorqueStuff();
+
+#endif
